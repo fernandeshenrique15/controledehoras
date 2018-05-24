@@ -1,0 +1,46 @@
+Work
+	lista()
+	mostra($id)
+	remove($id)
+	novo()
+	- id
+	- name
+	- lastname
+	- idDepartment
+	- email
+	- hours
+	- minutes
+
+Admin
+	lista()
+	remove($id)
+	novo()
+	- id
+	- name
+	- email
+	- password
+	- update_at
+	- created_at
+
+Register
+	lista()
+	remove($id)
+	novo()
+	idWork($id)
+	- id
+	- mode
+	- idWork
+	- hour
+	- produced
+	- update_at
+	- created_at
+	- comment
+
+
+Department
+	lista()
+	mostra($id)
+	remove($id)
+	novo()
+	- id
+	- name
