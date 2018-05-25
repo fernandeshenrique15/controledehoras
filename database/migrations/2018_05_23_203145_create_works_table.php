@@ -13,8 +13,8 @@ class CreateWorksTable extends Migration {
 			$table->integer('idDepartment')->unsigned();
 			$table->foreign('idDepartment')->references('id')->on('departments');
 			$table->string('email', 50);
-			$table->integer('hours');
-			$table->integer('minutes');
+			$table->integer('hours')->nullable();
+			$table->integer('minutes')->nullable();
 		});
 	}
 
