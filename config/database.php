@@ -13,7 +13,7 @@ return [
 		    |
 	*/
 
-	'default' => env('DB_CONNECTION', 'mysql'),
+	'default' => env('DB_CONNECTION', 'pgsql'),
 
 	/*
 		    |--------------------------------------------------------------------------
@@ -42,10 +42,10 @@ return [
 		'mysql' => [
 			'driver' => 'mysql',
 			'host' => env('DB_HOST', 'us-cdbr-iron-east-04.cleardb.net'),
-			'port' => env('DB_PORT', '3306'),
-			'database' => env('DB_DATABASE', 'heroku_18838511d3d0840'),
-			'username' => env('DB_USERNAME', 'b9fe3aa81ef576'),
-			'password' => env('DB_PASSWORD', 'd0e20dee'),
+			'port' => env('DB_PORT', '5432'),
+			'database' => env('DB_DATABASE', 'dfn2kns0o3jmo9'),
+			'username' => env('DB_USERNAME', 'rjaoakereytfbl'),
+			'password' => env('DB_PASSWORD', '9df47eca8226b235d0b39cc12b2e82e8b2e10cb3dddc9564e846bd09b0a13bfe'),
 			'unix_socket' => env('DB_SOCKET', ''),
 			'charset' => 'utf8mb4',
 			'collation' => 'utf8mb4_unicode_ci',
@@ -56,11 +56,11 @@ return [
 
 		'pgsql' => [
 			'driver' => 'pgsql',
-			'host' => env('DB_HOST', '127.0.0.1'),
+			'host' => env('DB_HOST', 'ec2-54-243-235-153.compute-1.amazonaws.com'),
 			'port' => env('DB_PORT', '5432'),
-			'database' => env('DB_DATABASE', 'forge'),
-			'username' => env('DB_USERNAME', 'forge'),
-			'password' => env('DB_PASSWORD', ''),
+			'database' => env('DB_DATABASE', 'dfn2kns0o3jmo9'),
+			'username' => env('DB_USERNAME', 'rjaoakereytfbl'),
+			'password' => env('DB_PASSWORD', '9df47eca8226b235d0b39cc12b2e82e8b2e10cb3dddc9564e846bd09b0a13bfe'),
 			'charset' => 'utf8',
 			'prefix' => '',
 			'schema' => 'public',
