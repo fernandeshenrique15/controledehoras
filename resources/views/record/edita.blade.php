@@ -30,25 +30,11 @@
                         <br>
                         <select required name="idWork" class="form-control">
                             <option value="" disabled>Funcionário</option>
-
-                            @foreach ($departments as $d)
-
-                                <optgroup label="{{ $d->name }}">
-
                                 @foreach ($works as $w)
-
-                                    @if ($w->idDepartment == $d->id)
-
-                                        <option value='{{ $w->id }}' @if ($record->idWork == $w->id) selected @endif >{{ $w->lastname }}</option>
-
+                                    @if ($record->idWork == $w->id)
+                                     <option value='{{ $record->idWork }}' selected>{{ $w->lastname }}</option>
                                     @endif
-
                                 @endforeach
-
-                                </optgroup>
-
-                            @endforeach
-
                         </select>
                         <br>
                         <input type="time" value="{{ $record->hour }}" class="form-control" name="hour" placeholder="Hora" required>
