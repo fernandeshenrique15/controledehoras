@@ -95,9 +95,75 @@ class RecordController extends Controller {
 	}
 
 	public function atualiza(RecordRequest $request) {
-		Record::find($request->id)->update($request->except('_token'));
+		$work = Work::find($request->idWork);
+		$recordOld = Record::find($request->id);
+		$workOld = Work::find($recordOld->idWork);
 
-		return flashMessage('Record', 'Registro atualizado com sucesso');
+		if (empty($work)) {
+			return flashMessage('Record', 'Funcionário não localizado', 'danger');
+		}
+
+		$hour = explode(':', $request->hour);
+		$hourAntigo = explode(':', $recordOld->hour);
+
+		// Transforma tudo em minutos
+		$hour[1] += $hour[0] * 60;
+		$hourAntigo[1] += $hourAntigo[0] * 60;
+
+		$work->minutes += $work->hours * 60;
+
+		// Verifica se permanece a modalidade
+
+		if ($recordOld->mode == $request->mode) {
+
+			// Sem alteração no funcionário
+
+			if ($recordOld->hour == $request->hour) {
+
+				if (Record::find($request->id)->update($request->except('_token'))) {
+					return flashMessage('Record', 'Registro atualizado com sucesso');
+				} else {
+					return flashMessage('Record', 'Falha ao atualizar registro #142');
+				}
+
+			}
+
+			// Alteração no hora, desfaz o calculo e calcula com o novo valor
+
+			if ($request->mode == 'add') {
+				$work->minutes -= $hourAntigo[1];
+				$work->minutes += $hour[1];
+			} elseif ($request->mode == 'remove') {
+				$work->minutes += $hourAntigo[1];
+				$work->minutes -= $hour[1];
+			}
+
+		}
+
+		// Mudou a modalidade, desfaz o calculo e calcula com a nova modalidade
+
+		else {
+
+			if ($request->mode == 'add') {
+				$work->minutes += $hourAntigo[1];
+				$work->minutes += $hour[1];
+			} elseif ($request->mode == 'remove') {
+				$work->minutes -= $hourAntigo[1];
+				$work->minutes -= $hour[1];
+			}
+
+		}
+
+		// Reverte a transformação
+		$work->hours = intval($work->minutes / 60);
+		$work->minutes = $work->minutes - ($work->hours * 60);
+
+		if ($work->save()) {
+			Record::find($request->id)->update($request->except('_token'));
+			return flashMessage('Record', 'Registro atualizado com sucesso');
+		} else {
+			return flashMessage('Record', 'Falha ao atualizar funcionário', 'danger');
+		}
 
 	}
 

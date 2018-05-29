@@ -15,8 +15,8 @@ class Work extends Model {
 	// Proibe inserção deste campo
 	protected $guarded = ['id'];
 
-	// public function department() {
-	//     return $this->belongsTo('ControleDeHoras\Deparment');
-	// }
+	public function department() {
+		return $this->belongsTo('ControleDeHoras\Department', 'idDepartment');
+	}
 
 }
