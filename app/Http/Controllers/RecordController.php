@@ -40,9 +40,39 @@ class RecordController extends Controller {
 
 	public function remove($id) {
 		$record = Record::find($id);
-		$record->delete();
 
-		return flashMessage('Record', 'Registro removido com sucesso');
+		// Localiza o funcionário para descontar o registro que será excluido
+		$work = Work::find($record->idWork);
+		$hour = explode(':', $record->hour);
+
+		// Transforma tudo em minutos
+		$hour[1] += $hour[0] * 60;
+		$work->minutes += $work->hours * 60;
+
+		// Faz o calculo
+
+		if ($record->mode == 'add') {
+			$work->minutes -= $hour[1];
+		} elseif ($record->mode == 'remove') {
+			$work->minutes += $hour[1];
+		}
+
+		// Reverte a transformação
+		$work->hours = intval($work->minutes / 60);
+		$work->minutes = $work->minutes - ($work->hours * 60);
+
+		if ($work->save()) {
+
+			if ($record->delete()) {
+				return flashMessage('Work', 'Registro removido com sucesso');
+			} else {
+				return flashMessage('Work', 'Falha ao remover registro', 'danger');
+			}
+
+		} else {
+			return flashMessage('Work', 'Falha ao descontar do funcionário', 'danger');
+		}
+
 	}
 
 	public function novo() {
