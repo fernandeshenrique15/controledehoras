@@ -35,8 +35,8 @@
 								<td>{{ $r->produced or ' ' }}</td>
 								<td>{{ $r->comment or ' ' }}</td>
 								<td>
-									<a href="record/edit/{{ $r->id }}"><span class="glyphicon glyphicon-edit"></span></a>
-									<a href="record/remove/{{ $r->id }}"><span class="glyphicon glyphicon-trash"></span></a>
+									<a href="../../record/edita/{{ $r->id }}"><span class="glyphicon glyphicon-edit"></span></a>
+									<a href="../../record/remove/{{ $r->id }}"><span class="glyphicon glyphicon-trash"></span></a>
 								</td>
 							</tr>
 						@endforeach
@@ -45,8 +45,4 @@
 			</table>
 		</div>
 	</div>
-
-	@if(old('name'))
-		<br><div class="alert alert-success">Registro de {{ old('name') }} adicionado com sucesso!</div>
-	@endif
 @stop
