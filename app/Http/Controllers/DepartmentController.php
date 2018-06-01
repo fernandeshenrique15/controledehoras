@@ -15,7 +15,7 @@ class DepartmentController extends Controller {
 
 	public function lista() {
 
-		$departments = Department::all();
+		$departments = Department::all()->sortBy('name');
 
 		return view('department.listagem')->with('departments', $departments);
 	}
@@ -23,7 +23,7 @@ class DepartmentController extends Controller {
 	public function mostra($id) {
 		$department = Department::find($id);
 
-		$works = Work::where('idDepartment', $id);
+		$works = Work::where('idDepartment', $id)->orderBy('name', 'asc');
 
 		if (empty($department)) {
 			return flashMessage('Department', 'Departamento não existe', 'danger');

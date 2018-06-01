@@ -15,7 +15,7 @@ class UserController extends Controller {
 
 	public function lista() {
 
-		$users = User::all();
+		$users = User::all()->sortBy('name');
 
 		return view('user.listagem')->with('users', $users);
 	}

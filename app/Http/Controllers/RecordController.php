@@ -18,7 +18,7 @@ class RecordController extends Controller {
 
 	public function lista() {
 
-		$records = Record::limit(10)->get();
+		$records = Record::limit(10)->latest()->get();
 		$works = Work::all();
 
 		foreach ($records as $r) {

@@ -17,7 +17,7 @@ class WorkController extends Controller {
 	// Listar funcionários
 	public function lista() {
 
-		$works = Work::all();
+		$works = Work::all()->sortBy('name');
 		$departments = Department::all();
 
 		foreach ($works as $work) {
@@ -38,7 +38,7 @@ class WorkController extends Controller {
 
 	public function mostra($id) {
 		$work = Work::find($id);
-		$records = Record::where('idWork', $id);
+		$records = Record::where('idWork', $id)->orderBy('created_at', 'desc');
 
 		if (empty($work)) {
 			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
@@ -57,7 +57,7 @@ class WorkController extends Controller {
 	}
 
 	public function novo() {
-		$departments = Department::all();
+		$departments = Department::all()->sortBy('name');
 		return view('work.novo')->with('departments', $departments);
 	}
 
@@ -70,7 +70,7 @@ class WorkController extends Controller {
 
 	public function edita($id) {
 		$work = Work::find($id);
-		$departments = Department::all();
+		$departments = Department::all()->sortBy('name');
 
 		return view('work.edita', ['departments' => $departments, 'work' => $work]);
 	}
