@@ -32,7 +32,7 @@
 
 	<div class="panel panel-primary">
 		<div class="panel-heading">Cadastro de departamento</div>
-			<div class="panel-body">
+		<div class="panel-body">
 			<form action="{{ action('DepartmentController@adiciona') }}" method="post">
 				<div class="form-group">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
@@ -41,7 +41,7 @@
 					<button class="btn btn-primary" type="submit">Cadastrar</button>
 				</div>
 			</form>
-			</div>
 		</div>
 	</div>
+
 @stop
