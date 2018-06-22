@@ -1,48 +1,43 @@
 @extends('layout.principal')
 
 @section('conteudo')
-	<div class="panel panel-primary">
-		<div class="panel-heading">Registros de {{ $work->lastname }}</div>
-		<div class="panel-body">
-			<table class="table table-striped table-hover">
-				@if(empty($records))
-					<div>Não há registros de {{ $work->lastname }}</div><br>
-				@else
-
-					<thead>
+	<div class="table-responsive-md">
+		<h3 class="title mt-4">Registros de {{ $work->lastname }}</h3>
+		<table class="table table-striped table-hover">
+			@if(empty($records))
+				<br><div class="alert alert-danger">Não há registros de {{ $work->lastname }}</div><br>
+			@else
+				<thead class="thead-dark">
+					<tr>
+						<th>Operação</th>
+						<th>Tempo</th>
+						<th>Realizada em</th>
+						<th>Comentário</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach ($records as $r)
 						<tr>
-							<th>Operação</th>
-							<th>Sobrenome</th>
-							<th>Tempo</th>
-							<th>Realizada em</th>
-							<th>Cadastrada em</th>
-							<th>Ações</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach ($records as $r)
-							<tr>
-								<td>
-									@if($r->mode == 'add')
-										<span class="glyphicon glyphicon-plus"></span>
-									@else
-										<span class="glyphicon glyphicon-minus"></span>
+							<td>
+								@if($r->mode == 'add')
+									<i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+								@else
+									<i class="zmdi zmdi-minus zmdi-hc-lg"></i>
 
-									@endif
-								</td>
-								<td>{{ $work->lastname or 'Não tem sobrenome' }}</td>
-								<td>{{ $r->hour or 'Não tem departamento' }}</td>
-								<td>{{ $r->produced or ' ' }}</td>
-								<td>{{ $r->comment or ' ' }}</td>
-								<td>
-									<a href="../../record/edita/{{ $r->id }}"><span class="glyphicon glyphicon-edit"></span></a>
-									<a href="../../record/remove/{{ $r->id }}"><span class="glyphicon glyphicon-trash"></span></a>
-								</td>
-							</tr>
-						@endforeach
-					</tbody>
-				@endif
-			</table>
-		</div>
+								@endif
+							</td>
+							<td>{{ $r->hour or 'Não tem departamento' }}</td>
+							<td>{{ $r->produced or ' ' }}</td>
+							<td>{{ $r->comment or ' ' }}</td>
+							<td>
+								<a href="../../record/edita/{{ $r->id }}"><i class="zmdi zmdi-edit zmdi-hc-lg"></i></a>
+								<a href="../../record/remove/{{ $r->id }}"><i class="zmdi zmdi-delete zmdi-hc-lg"></i></a>
+							</td>
+						</tr>
+					@endforeach
+				</tbody>
+			@endif
+		</table>
 	</div>
 @stop

@@ -121,6 +121,10 @@ class RecordController extends Controller {
 		$works = Work::all();
 		$record = Record::find($id);
 
+		if (empty($record)) {
+			return flashMessage('Record', 'Registro não localizado', 'danger');
+		}
+
 		return view('record.edita', ['departments' => $departments, 'works' => $works, 'record' => $record]);
 	}
 

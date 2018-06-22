@@ -9,54 +9,51 @@
             @endforeach
         </ul>
     </div>
-    <br>
+
 @endif
 
-<div class="panel panel-primary">
-    <div class="panel-heading">Cadastro de Registro</div>
-        <div class="panel-body">
-        <form action="adiciona" method="post">
-            <div class="form-group">
+    <div class="card card-primary col-auto mx-auto mt-5">
+        <div class="card-body">
+            <h5 class="card-title">Cadastro de Registro</h5>
+            <form action="adiciona" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                 <select required name="mode" class="form-control">
                   <option selected value="" disabled>Modalidade</option>
                   <option value="add">Positivo</option>
                   <option value="remove">Negativo</option>
                 </select>
-                <br>
-                <select required name="idWork" class="form-control">
+
+                <select required name="idWork" class="form-control mt-2">
                     <option selected value="" disabled>Funcionário</option>
 
                     @foreach ($departments as $d)
 
                         <optgroup label="{{ $d->name }}">
 
-                        @foreach ($works as $w)
+                            @foreach ($works as $w)
 
-                            @if ($w->idDepartment == $d->id)
+                                @if ($w->idDepartment == $d->id)
 
-                                <option value='{{ $w->id }}'>{{ $w->lastname }}</option>
+                                    <option value='{{ $w->id }}'>{{ $w->lastname }}</option>
 
-                            @endif
+                                @endif
 
-                        @endforeach
+                            @endforeach
 
                         </optgroup>
 
                     @endforeach
 
                 </select>
-                <br>
-                <input type="time" class="form-control" name="hour" placeholder="Hora" required>
-                <br>
-                <input type="date" class="form-control" name="produced" placeholder="Data" required>
-                <br>
-                <textarea class="form-control" aria-label="Comentário" placeholder="Comentário" name="comment" required></textarea>
-                <br>
-                <button class="btn btn-primary" type="submit">Cadastrar Registro</button>
-            </div>
-        </form>
+
+                <input type="time" class="form-control mt-2" name="hour" placeholder="Hora" required>
+
+                <input type="date" class="form-control mt-2" name="produced" placeholder="Data" required>
+
+                <textarea class="form-control mt-2" aria-label="Comentário" placeholder="Comentário" name="comment" required></textarea>
+
+                <button class="btn btn-primary mt-4" type="submit">Cadastrar Registro</button>
+            </form>
         </div>
     </div>
-</div>
 @stop

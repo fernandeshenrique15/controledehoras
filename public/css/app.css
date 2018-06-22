@@ -7,7 +7,7 @@
  */
 
 :root {
-    --blue: #007bff;
+    --blue: #17a2b8;
     --indigo: #6610f2;
     --purple: #6f42c1;
     --pink: #e83e8c;
@@ -20,7 +20,7 @@
     --white: #fff;
     --gray: #6c757d;
     --gray-dark: #343a40;
-    --primary: #007bff;
+    --primary: #17a2b8;
     --secondary: #6c757d;
     --success: #28a745;
     --info: #17a2b8;
@@ -56,13 +56,13 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 }
 body {
     margin: 0;
-    font-family: Raleway, sans-serif;
-    font-size: .9rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 1rem;
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.5;
     color: #212529;
     text-align: left;
-    background-color: #f5f8fa
+    background-color: #fff;
 }
 [tabindex="-1"]:focus {
     outline: 0!important
@@ -133,7 +133,7 @@ sup {
     top: -.5em
 }
 a {
-    color: #007bff;
+    color: #17a2b8;
     text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects
@@ -1483,6 +1483,9 @@ pre code {
     margin-bottom: 1rem;
     background-color: transparent
 }
+.table {
+    border: 1px solid #343a40
+}
 .table td, .table th {
     padding: .75rem;
     vertical-align: top;
@@ -1566,8 +1569,8 @@ pre code {
 }
 .table .thead-dark th {
     color: #f5f8fa;
-    background-color: #212529;
-    border-color: #32383e
+    background-color: #343a40;
+    border-color: #343a40
 }
 .table .thead-light th {
     color: #495057;
@@ -2032,7 +2035,7 @@ select.form-control:focus::-ms-value {
     user-select: none;
     border: 1px solid transparent;
     padding: .375rem .75rem;
-    font-size: .9rem;
+    font-size: 1rem;
     line-height: 1.6;
     border-radius: .25rem;
     -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
@@ -2062,8 +2065,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 }
 .btn-primary {
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
+    background-color: #17a2b8;
+    border-color: #17a2b8
 }
 .btn-primary:hover {
     color: #fff;
@@ -2076,8 +2079,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 }
 .btn-primary.disabled, .btn-primary:disabled {
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
+    background-color: #17a2b8;
+    border-color: #17a2b8
 }
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
     color: #fff;
@@ -2285,28 +2288,28 @@ a.btn.disabled, fieldset:disabled a.btn {
     box-shadow: 0 0 0 .2rem rgba(52, 58, 64, .5)
 }
 .btn-outline-primary {
-    color: #007bff;
+    color: #17a2b8;
     background-color: transparent;
     background-image: none;
-    border-color: #007bff
+    border-color: #17a2b8
 }
 .btn-outline-primary:hover {
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
+    background-color: #17a2b8;
+    border-color: #17a2b8
 }
 .btn-outline-primary.focus, .btn-outline-primary:focus {
     -webkit-box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5);
     box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
 }
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-    color: #007bff;
+    color: #17a2b8;
     background-color: transparent
 }
 .btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
+    background-color: #17a2b8;
+    border-color: #17a2b8
 }
 .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-outline-primary.dropdown-toggle:focus {
     -webkit-box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5);
@@ -2510,7 +2513,7 @@ a.btn.disabled, fieldset:disabled a.btn {
 }
 .btn-link {
     font-weight: 400;
-    color: #007bff;
+    color: #17a2b8;
     background-color: transparent
 }
 .btn-link:hover {
@@ -2709,7 +2712,7 @@ tbody.collapse.show {
 .dropdown-item.active, .dropdown-item:active {
     color: #fff;
     text-decoration: none;
-    background-color: #007bff
+    background-color: #17a2b8
 }
 .dropdown-item.disabled, .dropdown-item:disabled {
     color: #6c757d;
@@ -2936,7 +2939,7 @@ tbody.collapse.show {
 }
 .custom-control-input:checked~.custom-control-label:before {
     color: #fff;
-    background-color: #007bff
+    background-color: #17a2b8
 }
 .custom-control-input:focus~.custom-control-label:before {
     -webkit-box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 .2rem rgba(0, 123, 255, .25);
@@ -2981,13 +2984,13 @@ tbody.collapse.show {
     border-radius: .25rem
 }
 .custom-checkbox .custom-control-input:checked~.custom-control-label:before {
-    background-color: #007bff
+    background-color: #17a2b8
 }
 .custom-checkbox .custom-control-input:checked~.custom-control-label:after {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E")
 }
 .custom-checkbox .custom-control-input:indeterminate~.custom-control-label:before {
-    background-color: #007bff
+    background-color: #17a2b8
 }
 .custom-checkbox .custom-control-input:indeterminate~.custom-control-label:after {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 4'%3E%3Cpath stroke='%23fff' d='M0 2h4'/%3E%3C/svg%3E")
@@ -3002,7 +3005,7 @@ tbody.collapse.show {
     border-radius: 50%
 }
 .custom-radio .custom-control-input:checked~.custom-control-label:before {
-    background-color: #007bff
+    background-color: #17a2b8
 }
 .custom-radio .custom-control-input:checked~.custom-control-label:after {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E")
@@ -3165,7 +3168,7 @@ tbody.collapse.show {
 }
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
-    background-color: #007bff
+    background-color: #17a2b8;
 }
 .nav-fill .nav-item {
     -webkit-box-flex: 1;
@@ -3209,7 +3212,7 @@ tbody.collapse.show {
     padding-top: .32rem;
     padding-bottom: .32rem;
     margin-right: 1rem;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     line-height: inherit;
     white-space: nowrap
 }
@@ -3842,7 +3845,7 @@ tbody.collapse.show {
     padding: .5rem .75rem;
     margin-left: -1px;
     line-height: 1.25;
-    color: #007bff;
+    color: #17a2b8;
     background-color: #fff;
     border: 1px solid #dee2e6
 }
@@ -3873,8 +3876,8 @@ tbody.collapse.show {
 .page-item.active .page-link {
     z-index: 1;
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
+    background-color: #17a2b8;
+    border-color: #17a2b8
 }
 .page-item.disabled .page-link {
     color: #6c757d;
@@ -3934,7 +3937,7 @@ tbody.collapse.show {
 }
 .badge-primary {
     color: #fff;
-    background-color: #007bff
+    background-color: #17a2b8
 }
 .badge-primary[href]:focus, .badge-primary[href]:hover {
     color: #fff;
@@ -4169,7 +4172,7 @@ tbody.collapse.show {
     justify-content: center;
     color: #fff;
     text-align: center;
-    background-color: #007bff;
+    background-color: #17a2b8;
     -webkit-transition: width .6s ease;
     transition: width .6s ease
 }
@@ -4247,8 +4250,8 @@ tbody.collapse.show {
 .list-group-item.active {
     z-index: 2;
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
+    background-color: #17a2b8;
+    border-color: #17a2b8
 }
 .list-group-flush .list-group-item {
     border-right: 0;
@@ -4953,7 +4956,7 @@ button.close {
     vertical-align: text-top!important
 }
 .bg-primary {
-    background-color: #007bff!important
+    background-color: #17a2b8!important
 }
 a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
     background-color: #0062cc!important
@@ -5037,7 +5040,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
     border-left: 0!important
 }
 .border-primary {
-    border-color: #007bff!important
+    border-color: #17a2b8!important
 }
 .border-secondary {
     border-color: #6c757d!important
@@ -7212,7 +7215,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
     color: #fff!important
 }
 .text-primary {
-    color: #007bff!important
+    color: #17a2b8!important
 }
 a.text-primary:focus, a.text-primary:hover {
     color: #0062cc!important

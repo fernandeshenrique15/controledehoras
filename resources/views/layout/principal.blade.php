@@ -1,13 +1,14 @@
 <html>
 	<head>
-	    <!-- <link href="/css/app.css" rel="stylesheet"> -->
-	    <link href="/css/custom.css" rel="stylesheet">
-	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	    <link href="/css/app.css" rel="stylesheet">
+	  <!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"> -->
 
 	    <!-- Icon Google -->
 	    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-	    <script src="{{ asset('js/app.js') }}" defer></script>
+		<!-- Icon material-design-iconic -->
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
     	<link rel="dns-prefetch" href="https://fonts.gstatic.com">
     	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 	    <title>Controle de Horas</title>
@@ -25,7 +26,7 @@
                   <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }}</a></li>
               @else
                 <li class="nav-item">
-				      <a class="nav-link {{{ (Request::is('/') ? 'active' : '') }}}" href="{{action('RecordController@lista')}}">
+				      <a class="nav-link {{{ (Request::is('/') ? 'active' : '') }}} {{{ (Request::is('record') ? 'active' : '') }}}" href="{{action('RecordController@lista')}}">
 				          Registros
 				      </a>
 				  </li>
@@ -41,7 +42,7 @@
                           <a class="dropdown-item" href="{{ route('logout') }}"
                              onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
-                              {{ __('Logout') }}
+                              {{ __('Sair') }}
                           </a>
 
                           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -56,14 +57,18 @@
 
 		<div class="container">
 			@if(old('msg'))
-				<br><div class="alert alert-{{ old('type')}}">{{ old('msg') }}</div>
+				<br><div class="alert alert-{{ old('type')}}">{{ old('msg') }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
 				@if(old('passed'))
 					@yield('conteudo')
 				@endif
 			@else
 				@yield('conteudo')
 			@endif
-		    <footer class="footer">
+		    <footer class="footer mt-5">
 		    	<p>© Direitos.</p>
 		    </footer>
 	  	</div>

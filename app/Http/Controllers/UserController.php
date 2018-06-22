@@ -39,18 +39,28 @@ class UserController extends Controller {
 	}
 
 	protected function adiciona() {
-		$input = Request::only('name', 'email', 'password');
-		User::create([
-			'name' => $input['name'],
-			'email' => $input['email'],
-			'password' => Hash::make($input['password']),
-		]);
+		$request = Request::only('name', 'email', 'password', 'password2');
 
-		return flashMessage('User', 'Usuário cadastrado com sucesso');
+		if ($request['password'] == $request['password2']) {
+			User::create([
+				'name' => $request['name'],
+				'email' => $request['email'],
+				'password' => Hash::make($request['password']),
+			]);
+
+			return flashMessage('User', 'Usuário cadastrado com sucesso');
+		} else {
+			return flashMessage('User', 'Senhas não conferem', 'danger');
+		}
+
 	}
 
 	public function edita($id) {
 		$user = User::find($id);
+
+		if (empty($user)) {
+			return flashMessage('User', 'Usuário não localizado', 'danger');
+		}
 
 		return view('user.edita', ['user' => $user]);
 	}
@@ -62,7 +72,9 @@ class UserController extends Controller {
 			$request['password'] = Hash::make($request['password']);
 			User::find($request['id'])->update($request);
 
-			return flashMessage('User', 'Aministrador atualizado com sucesso');
+			return flashMessage('User', 'Usuário atualizado com sucesso');
+		} else {
+			return flashMessage('User', 'Senhas não conferem', 'danger');
 		}
 
 	}
