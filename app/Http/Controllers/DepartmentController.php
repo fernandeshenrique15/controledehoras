@@ -62,8 +62,8 @@ class DepartmentController extends Controller {
 	}
 
 	public function adiciona() {
-		Department::create(Request::all());
 
+		Department::create(Request::all());
 		return flashMessage('Department', 'Departamento adicionado com sucesso');
 
 	}

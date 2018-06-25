@@ -36,11 +36,9 @@
 		<div class="card-body">
 			<h5 class="card-title">Cadastro de departamento</h5>
 			<form action="{{ action('DepartmentController@adiciona') }}" method="post">
-				<div class="form-group">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-					<input type="text" name="name" placeholder="Nome" class="form-control" required />
-					<button class="btn btn-primary mt-3" type="submit">Cadastrar</button>
-				</div>
+				<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+				<input type="text" name="name" placeholder="Nome" class="form-control" required />
+				<button class="btn btn-primary mt-3" type="submit">Cadastrar</button>
 			</form>
 		</div>
 	</div>
