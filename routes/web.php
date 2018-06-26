@@ -46,3 +46,7 @@ Route::get('/department/novo', 'DepartmentController@novo');
 Route::post('/department/adiciona', 'DepartmentController@adiciona');
 
 Auth::routes();
+
+//Route::get('login', 'Auth\AuthController@showLoginForm');
+//Route::post('login', 'Auth\AuthController@login');
+//Route::get('logout', 'Auth\AuthController@logout');

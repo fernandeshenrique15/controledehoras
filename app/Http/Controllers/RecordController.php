@@ -12,8 +12,10 @@ class RecordController extends Controller {
 
 	public function __construct() {
 		// privar exceto algumas funções
-		$this->middleware('auth',
-			['except' => ['lista']]);
+		//$this->middleware('auth', ['except' => ['lista']]);
+
+		// privar toda class
+		$this->middleware('auth');
 	}
 
 	public function lista() {
