@@ -40,34 +40,38 @@
 	<a  class="btn btn-primary" href="{{ action('WorkController@novo') }}">Cadastrar Funcionário</a>
 
 	<div class="row">
+		@if($positions['more']['name'])
 		<div class="col-sm-6">
 			<div class="card mt-5" >
 				<div class="card-body">
 					<h5 class="card-title">Mais Hora</h5>
 					<h6 class="card-subtitle mb-2 text-muted">Funcionário com mais hora extra</h6>
 				 	<ul class="list-group list-group-flush">
-				 		<li class="list-group-item">Henrique Fernandes</li>
-						<li class="list-group-item">Horas: 22:25</li>
-						<li class="list-group-item">Departamento: Suporte</li>
+				 		<li class="list-group-item">{{$positions['more']['name']}}</li>
+						<li class="list-group-item">Horas: {{$positions['more']['value']}}</li>
+						<li class="list-group-item">Departamento: {{$positions['more']['department']}}</li>
 					</ul>
 					<a href="#" class="btn btn-primary mt-4">Avisar por e-mail</a>
 				</div>
 			</div>
 		</div>
+		@endif
+		@if($positions['less']['name'])
 		<div class="col-sm-6">
 			<div class="card mt-5" >
 				<div class="card-body">
 					<h5 class="card-title">Menos hora</h5>
 					<h6 class="card-subtitle mb-2 text-muted">Funcionário com menos hora extra</h6>
 				 	<ul class="list-group list-group-flush">
-				 		<li class="list-group-item">Henrique Fernandes</li>
-						<li class="list-group-item">Horas: - 22:25</li>
-						<li class="list-group-item">Departamento: Suporte</li>
+				 		<li class="list-group-item">{{$positions['less']['name']}}</li>
+						<li class="list-group-item">Horas: {{$positions['less']['value']}}</li>
+						<li class="list-group-item">Departamento: {{$positions['less']['department']}}</li>
 					</ul>
 					<a href="#" class="btn btn-primary mt-4">Avisar por e-mail</a>
 				</div>
 			</div>
 		</div>
+		@endif
 	</div>
 
 @stop
