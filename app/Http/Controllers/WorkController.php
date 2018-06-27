@@ -22,14 +22,14 @@ class WorkController extends Controller {
 
 		$positions = [
 			'more' => [
-				'idMore' => 0,
+				'id' => 0,
 				'name' => false,
 				'value' => '0:0',
 				'email' => '',
 				'department' => '',
 			],
 			'less' => [
-				'idLess' => 0,
+				'id' => 0,
 				'name' => false,
 				'value' => '0:0',
 				'email' => '',
@@ -48,17 +48,15 @@ class WorkController extends Controller {
 
 					if (str_replace(':', '.', $work->hours) > str_replace(':', '.', $positions['more']['value'])) {
 						$positions['more']['value'] = $work->hours;
-						$positions['more']['idLess'] = $work->id;
+						$positions['more']['id'] = $work->id;
 						$positions['more']['name'] = $work->name;
-						$positions['more']['email'] = $work->email;
 						$positions['more']['department'] = $work->idDepartment;
 					}
 
 					if (str_replace(':', '.', $work->hours) < str_replace(':', '.', $positions['less']['value'])) {
 						$positions['less']['value'] = $work->hours;
-						$positions['less']['idLess'] = $work->id;
+						$positions['less']['id'] = $work->id;
 						$positions['less']['name'] = $work->name;
-						$positions['less']['email'] = $work->email;
 						$positions['less']['department'] = $work->idDepartment;
 					}
 
@@ -122,6 +120,11 @@ class WorkController extends Controller {
 
 		return flashMessage('Work', 'Funcionário atualizado com sucesso');
 
+	}
+
+	public function emailMore($id) {
+		$work = Work::find($id);
+		return view('mail.more', ['work' => $work]);
 	}
 
 }

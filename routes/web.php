@@ -47,6 +47,5 @@ Route::post('/department/adiciona', 'DepartmentController@adiciona');
 
 Auth::routes();
 
-//Route::get('login', 'Auth\AuthController@showLoginForm');
-//Route::post('login', 'Auth\AuthController@login');
-//Route::get('logout', 'Auth\AuthController@logout');
+// Emails
+Route::get('work/emailMore/{id}', 'WorkController@emailMore')->where('id', '[0-9]+');

@@ -37,7 +37,7 @@
 	</div>
 	@endif
 
-	<a  class="btn btn-primary" href="{{ action('WorkController@novo') }}">Cadastrar Funcionário</a>
+	<a  class="btn btn-primary" href="{{ action('WorkController@novo') }}"><i class="zmdi zmdi-account-add"></i> Cadastrar Funcionário</a>
 
 	<div class="row">
 		@if($positions['more']['name'])
@@ -51,7 +51,7 @@
 						<li class="list-group-item">Horas: {{$positions['more']['value']}}</li>
 						<li class="list-group-item">Departamento: {{$positions['more']['department']}}</li>
 					</ul>
-					<a href="#" class="btn btn-primary mt-4">Avisar por e-mail</a>
+					<a href="work/emailMore/{{$positions['more']['id']}}" class="btn btn-primary mt-4">Avisar por e-mail</a>
 				</div>
 			</div>
 		</div>
@@ -67,7 +67,7 @@
 						<li class="list-group-item">Horas: {{$positions['less']['value']}}</li>
 						<li class="list-group-item">Departamento: {{$positions['less']['department']}}</li>
 					</ul>
-					<a href="#" class="btn btn-primary mt-4">Avisar por e-mail</a>
+					<a href="work/emailMore/{{$positions['less']['id']}}" class="btn btn-primary mt-4">Avisar por e-mail</a>
 				</div>
 			</div>
 		</div>

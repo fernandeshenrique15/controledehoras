@@ -47,6 +47,6 @@
 	</div>
 	@endif
 
-	<a  class="btn btn-primary" href="{{ action('RecordController@novo') }}">Cadastrar Registro</a>
+	<a  class="btn btn-primary" href="{{ action('RecordController@novo') }}"><i class="zmdi zmdi-time"></i> Cadastrar Registro</a>
 
 @stop

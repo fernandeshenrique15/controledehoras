@@ -26,9 +26,9 @@
                   <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }}</a></li>
               @else
                 <li class="nav-item">
-				      <a class="nav-link {{{ (Request::is('/') ? 'active' : '') }}} {{{ (Request::is('record') ? 'active' : '') }}}" href="{{action('RecordController@lista')}}">
-				          Registros
-				      </a>
+				    <a class="nav-link {{{ (Request::is('/') ? 'active' : '') }}} {{{ (Request::is('record') ? 'active' : '') }}}" href="{{action('RecordController@lista')}}">
+					  	Registros
+				    </a>
 				  </li>
 		        <li class="nav-item"><a href="{{action('WorkController@lista')}}" class="nav-link {{{ (Request::is('work') ? 'active' : '') }}}">Funcionários</a></li>
 		        <li class="nav-item"><a href="{{action('DepartmentController@lista')}}" class="nav-link {{{ (Request::is('department') ? 'active' : '') }}}">Departamentos</a></li>
