@@ -1,5 +1,14 @@
 <?php
 
+$date = explode("/", getenv("SMTP_DATE"));
+$host = $date['0'];
+$port = $date['1'];
+$address = $date['2'];
+$name = $date['3'];
+$encryption = $date['4'];
+$username = $date['5'];
+$password = $date['6'];
+
 return [
 
     /*

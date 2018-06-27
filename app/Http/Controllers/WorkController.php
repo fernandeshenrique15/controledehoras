@@ -6,6 +6,8 @@ use ControleDeHoras\Department;
 use ControleDeHoras\Record;
 use ControleDeHoras\Work;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Mail;
+use ControleDeHoras\Mail\moreHours;
 
 class WorkController extends Controller {
 
@@ -124,7 +126,9 @@ class WorkController extends Controller {
 
 	public function emailMore($id) {
 		$work = Work::find($id);
-		return view('mail.more', ['work' => $work]);
-	}
 
+		Mail::to('tvtecimob@gmail.com')->send(new moreHours($work));
+		return 'OK';
+		//return view('mail.more', ['work' => $work]);
+	}
 }
