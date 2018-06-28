@@ -67,7 +67,7 @@
 						<li class="list-group-item">Horas: {{$positions['less']['value']}}</li>
 						<li class="list-group-item">Departamento: {{$positions['less']['department']}}</li>
 					</ul>
-					<a href="work/emailMore/{{$positions['less']['id']}}" class="btn btn-primary mt-4">Avisar por e-mail</a>
+					<a href="work/emailLess/{{$positions['less']['id']}}" class="btn btn-primary mt-4">Avisar por e-mail</a>
 				</div>
 			</div>
 		</div>

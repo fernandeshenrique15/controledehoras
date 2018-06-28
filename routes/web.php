@@ -49,3 +49,4 @@ Auth::routes();
 
 // Emails
 Route::get('work/emailMore/{id}', 'WorkController@emailMore')->where('id', '[0-9]+');
+Route::get('work/emailLess/{id}', 'WorkController@emailLess')->where('id', '[0-9]+');

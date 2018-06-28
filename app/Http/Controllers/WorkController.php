@@ -8,6 +8,7 @@ use ControleDeHoras\Work;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use ControleDeHoras\Mail\moreHours;
+use ControleDeHoras\Mail\lessHours;
 
 class WorkController extends Controller {
 
@@ -127,8 +128,24 @@ class WorkController extends Controller {
 	public function emailMore($id) {
 		$work = Work::find($id);
 
-		Mail::to('tvtecimob@gmail.com')->send(new moreHours($work));
-		return 'OK';
-		//return view('mail.more', ['work' => $work]);
+		if (empty($work)) {
+			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
+		} else {
+			Mail::to($work->email)->send(new moreHours($work));
+			return flashMessage('Work', 'E-mail enviado com sucesso!! ');
+		}
+		
+	}
+
+	public function emailLess($id) {
+		$work = Work::find($id);
+
+		if (empty($work)) {
+			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
+		} else {
+			Mail::to($work->email)->send(new lessHours($work));
+			return flashMessage('Work', 'E-mail enviado com sucesso!! ');
+		}
+		
 	}
 }
