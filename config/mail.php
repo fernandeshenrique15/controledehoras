@@ -2,10 +2,6 @@
 
     $date = explode("/", getenv("SMTP_DATE"));
 
-    var_dump(getenv("SMTP_DATE"));
-    echo empty($date);
-    echo isset($date);
-
     if(!empty($date)){
         $local = "smtp.mailtrap.io/465/from@example.com/Controle De Horas/TLS/36d7bf175fbac2/b2939f2fb595eb";
         $date = explode("/", $local);
