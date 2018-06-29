@@ -131,7 +131,14 @@ class WorkController extends Controller {
 		if (empty($work)) {
 			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
 		} else {
-			Mail::to($work->email)->send(new moreHours($work));
+
+			Mail::send('mail.more', [ 'name' => $work->name, 'hours' => $work->hours, 'email' => $work->email], function($message){
+
+				$message->to($message->date->$work['email']);
+				$message->subject('Controle de horas');
+
+			});
+
 			return flashMessage('Work', 'E-mail enviado com sucesso!! ');
 		}
 		
@@ -143,7 +150,16 @@ class WorkController extends Controller {
 		if (empty($work)) {
 			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
 		} else {
-			Mail::to($work->email)->send(new lessHours($work));
+
+			$work = (array) $work;
+
+			Mail::send('mail.less', $work, function($message){
+
+				$message->to($work->email);
+				$message->subject('Controle de horas');
+
+			});
+
 			return flashMessage('Work', 'E-mail enviado com sucesso!! ');
 		}
 		

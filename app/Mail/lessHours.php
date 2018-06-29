@@ -22,9 +22,9 @@ class lessHours extends Mailable
     {
         return $this->view('mail.less')
             ->with([
-                'name' => $this->work->name,
-                'hours' => $this->work->hours,
-                'email' => $this->work->email
+                'name' => $this->work['name'],
+                'hours' => $this->work['hours'],
+                'email' => $this->work['email']
             ]);
     }
 }
