@@ -132,12 +132,7 @@ class WorkController extends Controller {
 			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
 		} else {
 
-			Mail::send('mail.more', [ 'name' => $work->name, 'hours' => $work->hours, 'email' => $work->email], function($message){
-
-				$message->to($message->date->$work['email']);
-				$message->subject('Controle de horas');
-
-			});
+			
 
 			return flashMessage('Work', 'E-mail enviado com sucesso!! ');
 		}
@@ -151,14 +146,7 @@ class WorkController extends Controller {
 			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
 		} else {
 
-			$work = (array) $work;
-
-			Mail::send('mail.less', $work, function($message){
-
-				$message->to($work->email);
-				$message->subject('Controle de horas');
-
-			});
+			
 
 			return flashMessage('Work', 'E-mail enviado com sucesso!! ');
 		}
