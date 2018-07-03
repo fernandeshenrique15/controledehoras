@@ -1,7 +1,6 @@
 <html>
 	<head>
 	    <link href="/css/app.css" rel="stylesheet">
-	  <!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"> -->
 
 	    <!-- Icon Google -->
 	    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -32,7 +31,7 @@
 				  </li>
 		        <li class="nav-item"><a href="{{action('WorkController@lista')}}" class="nav-link {{{ (Request::is('work') ? 'active' : '') }}}">Funcionários</a></li>
 		        <li class="nav-item"><a href="{{action('DepartmentController@lista')}}" class="nav-link {{{ (Request::is('department') ? 'active' : '') }}}">Departamentos</a></li>
-		        <li class="nav-item"><a href="{{action('UserController@lista')}}" class="nav-link {{{ (Request::is('user') ? 'active' : '') }}}">Administradores</a></li>
+		        <li class="nav-item"><a href="{{action('UserController@lista')}}" class="nav-link {{{ (Request::is('user') ? 'active' : '') }}}">Usuários</a></li>
                   <li class="nav-item dropdown">
                       <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" >
                           {{ Auth::user()->name }} <span class="caret"></span>
