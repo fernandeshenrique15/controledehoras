@@ -69,6 +69,7 @@ class UserController extends Controller {
 		$request = Request::except('_token');
 
 		if ($request['password'] == $request['password2']) {
+			unset($request['password2']);
 			$request['password'] = Hash::make($request['password']);
 			User::find($request['id'])->update($request);
 
