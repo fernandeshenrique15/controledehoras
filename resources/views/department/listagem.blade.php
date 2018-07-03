@@ -1,7 +1,7 @@
 @extends('layout.principal')
 
 @section('conteudo')
-	@if(empty($departments))
+	@if(count($departments) === 0)
 		<div class="alert alert-info my-3">Você não tem nenhum departamento cadastrado
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>

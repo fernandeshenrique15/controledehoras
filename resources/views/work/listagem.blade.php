@@ -1,8 +1,12 @@
 @extends('layout.principal')
 
 @section('conteudo')
-	@if(empty($works))
-		<div>Você não tem nenhum funcionário cadastrado</div><br>
+	@if(count($works) === 0)
+		<div class="alert alert-info my-3">Você não tem nenhum funcionário cadastrado
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
 	@else
 	<div class="table-responsive-md">
 		<h3 class="title mt-4">Listagem de funcionários</h3>

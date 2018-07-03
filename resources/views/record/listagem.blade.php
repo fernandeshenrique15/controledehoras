@@ -1,7 +1,7 @@
 @extends('layout.principal')
 
 @section('conteudo')
-	@if(empty($records))
+	@if(count($records) === 0)
 		<div class="alert alert-info my-3">Você não tem nenhum registro
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
