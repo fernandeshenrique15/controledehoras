@@ -12,7 +12,7 @@ class Department extends Model {
 	// Proibe inserção deste campo
 	protected $guarded = ['id'];
 
-	public function works() {
+	public function work() {
 		return $this->hasMany('ControleDeHoras\Work', 'idDepartment');
 	}
 

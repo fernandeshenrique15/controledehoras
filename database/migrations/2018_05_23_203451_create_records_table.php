@@ -10,8 +10,8 @@ class CreateRecordsTable extends Migration {
 			$table->increments('id');
 			$table->string('mode', 10);
 			$table->time('hour');
-			$table->integer('idWork')->unsigned();
-			$table->foreign('idWork')->references('id')->on('works');
+			$table->unsignedInteger('idWork');
+			$table->foreign('idWork')->references('id')->on('works')->onDelete('cascade');
 			$table->date('produced');
 			$table->string('comment')->nullable();
 			$table->timestamps();
