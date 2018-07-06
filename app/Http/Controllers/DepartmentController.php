@@ -3,7 +3,6 @@
 namespace ControleDeHoras\Http\Controllers;
 
 use ControleDeHoras\Department;
-use ControleDeHoras\Work;
 use Illuminate\Support\Facades\Request;
 
 class DepartmentController extends Controller {
@@ -23,29 +22,22 @@ class DepartmentController extends Controller {
 	public function mostra($id) {
 		$department = Department::find($id);
 
-		$works = Work::where('idDepartment', $id)->orderBy('name', 'asc');
-
-		if (empty($department)) {
-			return flashMessage('Department', 'Departamento não existe', 'danger');
-
-		} elseif ($works->count() == 0) {
-			$msg = "Não há funcionário no " . $department->name;
-			return flashMessage('Department', $msg, 'danger');
+		if ($department->works->count() == 0) {
+			return flashMessage('Department', 'Não há funcionário no departamento', 'danger');
 		}
 
-		return view('department.mostra', ['department' => $department, 'works' => $works->get()]);
+		return view('department.mostra', ['department' => $department]);
 	}
 
 	public function remove($id) {
 		$department = Department::find($id);
-		$works = Work::where('idDepartment', $id)->count();
 
 		if (empty($department)) {
 
 			$msg = 'Departamento não existe';
 			$type = 'danger';
 
-		} elseif ($works == 0) {
+		} elseif ($department->works->count() == 0) {
 
 			$department->delete();
 			$msg = 'Departamento excluido com sucesso';

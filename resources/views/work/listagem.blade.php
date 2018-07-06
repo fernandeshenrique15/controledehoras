@@ -13,8 +13,7 @@
 		<table class="table table-striped table-hover">
 			<thead class="thead-dark">
 				<tr>
-					<th class="d-none d-md-table-cell">Nome</th>
-					<th>Sobrenome</th>
+					<th>Nome</th>
 					<th>Departamento</th>
 					<th class="d-none d-md-table-cell">E-mail</th>
 					<th>Horas</th>
@@ -24,9 +23,8 @@
 			<tbody>
 		@foreach ($works as $w)
 				<tr>
-					<td class="d-none d-md-table-cell">{{ $w->name or 'Não tem nome' }}</td>
-					<td>{{ $w->lastname or 'Não tem sobrenome' }}</td>
-					<td>{{ $w->idDepartment or 'Não tem departamento' }}</td>
+					<td>{{ $w->name or 'Sem nome' }} {{ $w->lastname }}</td>
+					<td>{{ $w->department->name or 'Não tem departamento' }}</td>
 					<td class="d-none d-md-table-cell">{{ $w->email or ' ' }}</td>
 					<td>{{ $w->hours or ' ' }}</td>
 					<td>

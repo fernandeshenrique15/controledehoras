@@ -20,21 +20,15 @@ class RecordController extends Controller {
 
 	public function lista() {
 
-		$records = Record::limit(10)->latest()->get();
-		$works = Work::all();
+		$records = Record::all()->sortByDesc('created_at')->take(10);
+
+		if ($records->count() == 0) {
+			return flashMessage('Record', 'Não existe registros', 'info');
+		} 
 
 		foreach ($records as $r) {
 			$formatDate = new Carbon($r->produced);
 			$r->produced = $formatDate->format('d-m-Y');
-
-			foreach ($works as $w) {
-
-				if ($r->idWork == $w->id) {
-					$r->idWork = $w->lastname;
-				}
-
-			}
-
 		}
 
 		return view('record.listagem')->with('records', $records);
@@ -43,27 +37,23 @@ class RecordController extends Controller {
 	public function remove($id) {
 		$record = Record::find($id);
 
-		// Localiza o funcionário para descontar o registro que será excluido
-		$work = Work::find($record->idWork);
-		$hour = explode(':', $record->hour);
-
 		// Transforma tudo em minutos
+		$hour = explode(':', $record->hour);
 		$hour[1] += $hour[0] * 60;
-		$work->minutes += $work->hours * 60;
+		$record->work->minutes += $record->work->hours * 60;
 
 		// Faz o calculo
-
 		if ($record->mode == 'add') {
-			$work->minutes -= $hour[1];
+			$record->work->minutes -= $hour[1];
 		} elseif ($record->mode == 'remove') {
-			$work->minutes += $hour[1];
+			$record->work->minutes += $hour[1];
 		}
 
 		// Reverte a transformação
-		$work->hours = intval($work->minutes / 60);
-		$work->minutes = $work->minutes - ($work->hours * 60);
+		$record->work->hours = intval($record->work->minutes / 60);
+		$record->work->minutes = $record->work->minutes - ($record->work->hours * 60);
 
-		if ($work->save()) {
+		if ($record->work->save()) {
 
 			if ($record->delete()) {
 				return flashMessage('Work', 'Registro removido com sucesso');
@@ -79,9 +69,8 @@ class RecordController extends Controller {
 
 	public function novo() {
 		$departments = Department::all();
-		$works = Work::all();
-
-		return view('record.novo', ['departments' => $departments, 'works' => $works]);
+		
+		return view('record.novo', ['departments' => $departments]);
 	}
 
 	public function adiciona(RecordRequest $request) {
@@ -119,25 +108,18 @@ class RecordController extends Controller {
 	}
 
 	public function edita($id) {
-		$departments = Department::all();
-		$works = Work::all();
 		$record = Record::find($id);
 
 		if (empty($record)) {
 			return flashMessage('Record', 'Registro não localizado', 'danger');
 		}
 
-		return view('record.edita', ['departments' => $departments, 'works' => $works, 'record' => $record]);
+		return view('record.edita', ['record' => $record]);
 	}
 
 	public function atualiza(RecordRequest $request) {
 		$work = Work::find($request->idWork);
 		$recordOld = Record::find($request->id);
-		$workOld = Work::find($recordOld->idWork);
-
-		if (empty($work)) {
-			return flashMessage('Record', 'Funcionário não localizado', 'danger');
-		}
 
 		$hour = explode(':', $request->hour);
 		$hourAntigo = explode(':', $recordOld->hour);

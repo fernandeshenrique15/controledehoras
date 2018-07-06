@@ -1,17 +1,6 @@
 @extends('layout.principal')
 
 @section('conteudo')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-
-@endif
-
     <div class="card card-primary col-auto mx-auto mt-5">
         <div class="card-body">
             <h5 class="card-title">Cadastro de Registro</h5>
@@ -30,13 +19,9 @@
 
                         <optgroup label="{{ $d->name }}">
 
-                            @foreach ($works as $w)
+                            @foreach ($d->works as $w)
 
-                                @if ($w->idDepartment == $d->id)
-
-                                    <option value='{{ $w->id }}'>{{ $w->lastname }}</option>
-
-                                @endif
+                                    <option value='{{ $w->id }}'>{{ $w->name }} {{ $w->lastname }}</option>
 
                             @endforeach
 

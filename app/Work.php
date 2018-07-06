@@ -16,4 +16,8 @@ class Work extends Model {
 		return $this->belongsTo('ControleDeHoras\Department', 'idDepartment');
 	}
 
+	public function records() {
+		return $this->hasMany('ControleDeHoras\Record', 'idWork');
+	}
+
 }

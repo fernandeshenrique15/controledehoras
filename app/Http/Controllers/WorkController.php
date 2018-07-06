@@ -3,7 +3,6 @@
 namespace ControleDeHoras\Http\Controllers;
 
 use ControleDeHoras\Department;
-use ControleDeHoras\Record;
 use ControleDeHoras\Work;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
@@ -21,8 +20,8 @@ class WorkController extends Controller {
 	public function lista() {
 
 		$works = Work::all()->sortBy('name');
-		$departments = Department::all();
 
+		// Array do ranking
 		$positions = [
 			'more' => [
 				'id' => 0,
@@ -40,31 +39,23 @@ class WorkController extends Controller {
 			],
 		];
 
+		// Contabiliza o ranking
 		foreach ($works as $work) {
 
 			$work->hours = formatHour($work->hours, $work->minutes);
 
-			foreach ($departments as $department) {
+			if (str_replace(':', '.', $work->hours) > str_replace(':', '.', $positions['more']['value'])) {
+				$positions['more']['value'] = $work->hours;
+				$positions['more']['id'] = $work->id;
+				$positions['more']['name'] = $work->name;
+				$positions['more']['department'] = $work->department->name;
+			}
 
-				if ($work->idDepartment == $department->id) {
-					$work->idDepartment = $department->name;
-
-					if (str_replace(':', '.', $work->hours) > str_replace(':', '.', $positions['more']['value'])) {
-						$positions['more']['value'] = $work->hours;
-						$positions['more']['id'] = $work->id;
-						$positions['more']['name'] = $work->name;
-						$positions['more']['department'] = $work->idDepartment;
-					}
-
-					if (str_replace(':', '.', $work->hours) < str_replace(':', '.', $positions['less']['value'])) {
-						$positions['less']['value'] = $work->hours;
-						$positions['less']['id'] = $work->id;
-						$positions['less']['name'] = $work->name;
-						$positions['less']['department'] = $work->idDepartment;
-					}
-
-				}
-
+			if (str_replace(':', '.', $work->hours) < str_replace(':', '.', $positions['less']['value'])) {
+				$positions['less']['value'] = $work->hours;
+				$positions['less']['id'] = $work->id;
+				$positions['less']['name'] = $work->name;
+				$positions['less']['department'] = $work->department->name;
 			}
 
 		}
@@ -74,22 +65,20 @@ class WorkController extends Controller {
 
 	public function mostra($id) {
 		$work = Work::find($id);
-		$records = Record::where('idWork', $id)->orderBy('created_at', 'desc');
 
 		if (empty($work)) {
 			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
-		} elseif ($records->count() == 0) {
-			return view('work.mostra', ['work' => $work]);
+		} elseif ($work->records->count() == 0) {
+			return flashMessage('Work', 'Esse funcionário não tem registros', 'danger');
 		}
 
-		return view('work.mostra', ['work' => $work, 'records' => $records->get()]);
+		return view('work.mostra', ['work' => $work]);
 	}
 
 	public function remove($id) {
 		$work = Work::find($id);
-		$records = Record::where('idWork', $id)->count();
 
-		if ($records == 0) {
+		if ($work->records->count() == 0) {
 			$work->delete();
 			return flashMessage('Work', 'Funcionário removido com sucesso');
 		} else {

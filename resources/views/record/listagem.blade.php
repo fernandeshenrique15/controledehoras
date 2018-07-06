@@ -1,19 +1,12 @@
 @extends('layout.principal')
 
 @section('conteudo')
-	@if(count($records) === 0)
-		<div class="alert alert-info my-3">Você não tem nenhum registro
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-	@else
 	<div class="table-responsive-md">
 		<h3 class="title mt-4">Listagem de registros</h3>
 		<table class="table table-striped table-hover">
 			<thead class="thead-dark">
 				<tr>
-					<th>Sobrenome</th>
+					<th>Nome</th>
 					<th>Operação</th>
 					<th>Tempo</th>
 					<th>Realizada em</th>
@@ -24,7 +17,7 @@
 			<tbody>
 		@foreach ($records as $r)
 				<tr>
-					<td>{{ $r->idWork or 'Não tem sobrenome' }}</td>
+					<td>{{ $r->work->name or 'Sem nome' }} {{ $r->work->lastname }}</td>
 					<td>
 						@if($r->mode == 'add')
 							<i class="zmdi zmdi-plus zmdi-hc-lg"></i>
@@ -45,7 +38,6 @@
 			</tbody>
 		</table>
 	</div>
-	@endif
 
 	<a  class="btn btn-primary" href="{{ action('RecordController@novo') }}"><i class="zmdi zmdi-time"></i> Cadastrar Registro</a>
 
