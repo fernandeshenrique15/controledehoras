@@ -25,7 +25,7 @@
                   <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }}</a></li>
               @else
                 <li class="nav-item">
-				    <a class="nav-link {{{ (Request::is('/') ? 'active' : '') }}} {{{ (Request::is('record') ? 'active' : '') }}}" href="{{action('RecordController@lista')}}">
+				    <a class="nav-link {{{ (Request::is('record') ? 'active' : '') }}}" href="{{action('RecordController@lista')}}">
 					  	Registros
 				    </a>
 				  </li>
