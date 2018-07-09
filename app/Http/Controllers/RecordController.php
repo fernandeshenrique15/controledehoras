@@ -7,6 +7,7 @@ use ControleDeHoras\Department;
 use ControleDeHoras\Http\Requests\RecordRequest;
 use ControleDeHoras\Record;
 use ControleDeHoras\Work;
+use Illuminate\Http\Request;
 
 class RecordController extends Controller {
 
@@ -18,9 +19,22 @@ class RecordController extends Controller {
 		$this->middleware('auth');
 	}
 
-	public function lista() {
+	public function lista(Request $request) {
 
-		$records = Record::all()->sortByDesc('created_at')->take(10);
+		// sort the result
+			$ord = $request->only('o', 's');
+
+			if(isset($ord['o'])){
+				if(isset($ord['s'])){
+					$records = Record::all()->sortBy($ord['o'])->take(10);
+					$ord['o'] = 'reset';
+				} else {
+					$records = Record::all()->sortByDesc($ord['o'])->take(10);
+				}
+			} else {
+				$records = Record::all()->sortByDesc('created_at')->take(10);
+				$ord['o'] = 'reset';
+			}
 
 		if ($records->count() == 0) {
 			return flashMessage('Record', 'Não existe registros', 'info');
@@ -31,7 +45,7 @@ class RecordController extends Controller {
 			$r->produced = $formatDate->format('d-m-Y');
 		}
 
-		return view('record.listagem')->with('records', $records);
+		return view('record.listagem', ['records' => $records, 'sort' => $ord['o']]);
 	}
 
 	public function remove($id) {

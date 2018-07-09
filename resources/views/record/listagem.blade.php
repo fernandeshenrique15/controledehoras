@@ -1,15 +1,16 @@
 @extends('layout.principal')
 
 @section('conteudo')
+
 	<div class="table-responsive-md">
 		<h3 class="title mt-4">Listagem de registros</h3>
 		<table class="table table-striped table-hover">
 			<thead class="thead-dark">
 				<tr>
-					<th>Nome</th>
-					<th>Operação</th>
-					<th>Tempo</th>
-					<th>Realizada em</th>
+					<th><a href="@if($sort == 'work') ?o=work&s=asc @else ?o=work @endif" class="text-white">Nome</a></th>
+					<th><a href="@if($sort == 'mode') ?o=mode&s=asc @else ?o=mode @endif" class="text-white">Operação</a></th>
+					<th><a href="@if($sort == 'hour') ?o=hour&s=asc @else ?o=hour @endif" class="text-white">Tempo</a></th>
+					<th><a href="@if($sort == 'produced') ?o=produced&s=asc @else ?o=produced @endif" class="text-white">Realizada em</a></th>
 					<th>Comentário</th>
 					<th>Ações</th>
 				</tr>
