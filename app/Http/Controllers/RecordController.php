@@ -22,23 +22,19 @@ class RecordController extends Controller {
 	public function lista(Request $request) {
 
 		// sort the result
-			$ord = $request->only('o', 's');
+		$ord = $request->only('o', 's');
 
-			if(isset($ord['o'])){
-				if(isset($ord['s'])){
-					$records = Record::all()->sortBy($ord['o'])->take(10);
-					$ord['o'] = 'reset';
-				} else {
-					$records = Record::all()->sortByDesc($ord['o'])->take(10);
-				}
-			} else {
-				$records = Record::all()->sortByDesc('created_at')->take(10);
+		if(isset($ord['o'])){
+			if(isset($ord['s'])){
+				$records = Record::all()->sortBy($ord['o'])->take(10);
 				$ord['o'] = 'reset';
+			} else {
+				$records = Record::all()->sortByDesc($ord['o'])->take(10);
 			}
-
-		if ($records->count() == 0) {
-			return flashMessage('Record', 'Não existe registros', 'info');
-		} 
+		} else {
+			$records = Record::all()->sortByDesc('created_at')->take(10);
+			$ord['o'] = 'reset';
+		}
 
 		foreach ($records as $r) {
 			$formatDate = new Carbon($r->produced);
@@ -70,13 +66,13 @@ class RecordController extends Controller {
 		if ($record->work->save()) {
 
 			if ($record->delete()) {
-				return flashMessage('Work', 'Registro removido com sucesso');
+				return flashMessage('Record', 'Registro removido com sucesso');
 			} else {
-				return flashMessage('Work', 'Falha ao remover registro', 'danger');
+				return flashMessage('Record', 'Falha ao remover registro', 'danger');
 			}
 
 		} else {
-			return flashMessage('Work', 'Falha ao descontar do funcionário', 'danger');
+			return flashMessage('Record', 'Falha ao descontar do funcionário', 'danger');
 		}
 
 	}

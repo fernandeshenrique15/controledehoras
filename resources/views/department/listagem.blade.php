@@ -2,11 +2,7 @@
 
 @section('conteudo')
 	@if(count($departments) === 0)
-		<div class="alert alert-info my-3">Você não tem nenhum departamento cadastrado
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
+		<div class="alert alert-info my-3">Você não tem nenhum departamento cadastrado</div>
 	@else
 	<div class="table-responsive-md">
 		<h3 class="title mt-4">Listagem de departamentos</h3>
