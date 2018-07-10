@@ -31,7 +31,7 @@ Route::post('/user/edita/atualiza', 'UserController@atualiza');
 
 // Registros
 Route::get('/record', 'RecordController@lista');
-//Route::get('/', 'RecordController@lista');
+Route::get('/', 'RecordController@lista');
 Route::get('/record/remove/{id}', 'RecordController@remove')->where('id', '[0-9]+');
 Route::get('/record/edita/{id}', 'RecordController@edita')->where('id', '[0-9]+');
 Route::post('/record/edita/atualiza', 'RecordController@atualiza');
