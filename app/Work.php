@@ -20,4 +20,8 @@ class Work extends Model {
 		return $this->hasMany('ControleDeHoras\Record', 'idWork');
 	}
 
+	public function account() {
+		return $this->belongsTo('ControleDeHoras\Account', 'idAccount');
+	}
+
 }
