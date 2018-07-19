@@ -4,8 +4,7 @@ namespace ControleDeHoras;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Account extends Model
-{
+class Account extends Model {
 	// Proibe inserção deste campo
 	protected $guarded = ['id'];
 

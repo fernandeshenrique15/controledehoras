@@ -47,6 +47,10 @@ Route::post('/department/adiciona', 'DepartmentController@adiciona');
 
 Auth::routes();
 
+// Conta
+Route::post('/account/cadastrar', 'AccountController@adiciona');
+Route::post('/account/excluir', 'AccountController@remove');
+
 // Emails
 Route::get('work/emailMore/{id}', 'WorkController@emailMore')->where('id', '[0-9]+');
 Route::get('work/emailLess/{id}', 'WorkController@emailLess')->where('id', '[0-9]+');
