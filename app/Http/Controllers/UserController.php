@@ -5,6 +5,7 @@ namespace ControleDeHoras\Http\Controllers;
 use ControleDeHoras\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller {
 
@@ -14,24 +15,21 @@ class UserController extends Controller {
 	}
 
 	public function lista() {
+		$idAccount = Auth::user()->idAccount;
+		$users = User::all()->where('idAccount', $idAccount)->sortBy('name');
 
-		$users = User::all()->sortBy('name');
-
-		return view('user.listagem')->with('users', $users);
+		return view('user.listagem', ['users' => $users, 'idAccount' => $idAccount]);
 	}
 
 	public function remove($id) {
 		$user = User::find($id);
 
-		// Não apaga o primeiro usuário
+		if($user->idAccount <> Auth::user()->idAccount)
+			return flashMessage('User', 'Sem permissão', 'danger');
 
-		if ($user->id != 1) {
+		$user->delete();
+		return flashMessage('User', 'Usuário removido com sucesso');
 
-			$user->delete();
-			return flashMessage('User', 'Usuário removido com sucesso');
-		}
-
-		return flashMessage('User', 'Não é possível excluir o usuário primário', 'danger');
 	}
 
 	public function novo() {
@@ -41,22 +39,31 @@ class UserController extends Controller {
 	protected function adiciona() {
 		$request = Request::only('name', 'email', 'password', 'password2');
 
-		if ($request['password'] == $request['password2']) {
-			User::create([
-				'name' => $request['name'],
-				'email' => $request['email'],
-				'password' => Hash::make($request['password']),
-			]);
+		$data = User::where('email', $request['email'])->count();
 
-			return flashMessage('User', 'Usuário cadastrado com sucesso');
-		} else {
+        if(!empty($data))
+			return flashMessage('User', 'E-mail já cadastrado', 'danger');
+
+		if ($request['password'] != $request['password2'])
 			return flashMessage('User', 'Senhas não conferem', 'danger');
-		}
+		
+		User::create([
+			'name' => $request['name'],
+			'email' => $request['email'],
+			'password' => Hash::make($request['password']),
+			'idAccount' => Auth::user()->idAccount
+		]);
+
+		return flashMessage('User', 'Usuário cadastrado com sucesso');
 
 	}
 
 	public function edita($id) {
 		$user = User::find($id);
+
+		if($user->idAccount != Auth::user()->idAccount)
+			return flashMessage('User', 'Sem permissão', 'danger');
+		
 
 		if (empty($user)) {
 			return flashMessage('User', 'Usuário não localizado', 'danger');
@@ -67,16 +74,19 @@ class UserController extends Controller {
 
 	public function atualiza() {
 		$request = Request::except('_token');
+		$user = User::find($request['id']);
 
-		if ($request['password'] == $request['password2']) {
-			unset($request['password2']);
-			$request['password'] = Hash::make($request['password']);
-			User::find($request['id'])->update($request);
-
-			return flashMessage('User', 'Usuário atualizado com sucesso');
-		} else {
+		if($user->idAccount != Auth::user()->idAccount)
+			return flashMessage('User', 'Sem permissão', 'danger');
+		
+		if ($request['password'] != $request['password2'])
 			return flashMessage('User', 'Senhas não conferem', 'danger');
-		}
+
+		unset($request['password2']);
+		$request['password'] = Hash::make($request['password']);
+		$user->update($request);
+
+		return flashMessage('User', 'Usuário atualizado com sucesso');
 
 	}
 

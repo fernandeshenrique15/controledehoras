@@ -4,6 +4,7 @@ namespace ControleDeHoras\Http\Controllers;
 
 use ControleDeHoras\Department;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DepartmentController extends Controller {
 
@@ -13,18 +14,22 @@ class DepartmentController extends Controller {
 	}
 
 	public function lista() {
+	
+		$idAccount = Auth::user()->idAccount;
 
-		$departments = Department::all()->sortBy('name');
+		$departments = Department::all()->where('idAccount', Auth::user()->idAccount)->sortBy('name');
 
-		return view('department.listagem')->with('departments', $departments);
+		return view('department.listagem', ['departments' => $departments, 'idAccount' => $idAccount]);
 	}
 
 	public function mostra($id) {
 		$department = Department::find($id);
 
-		if ($department->works->count() == 0) {
+		if ($department->works->count() == 0)
 			return flashMessage('Department', 'Não há funcionário no departamento', 'danger');
-		}
+
+		if ($department->idAccount <> Auth::user()->idAccount)
+			return flashMessage('Department', 'Usuário sem permissão', 'danger');
 
 		return view('department.mostra', ['department' => $department]);
 	}
@@ -35,6 +40,10 @@ class DepartmentController extends Controller {
 		if (empty($department)) {
 
 			$msg = 'Departamento não existe';
+			$type = 'danger';
+
+		} elseif ($department->idAccount <> Auth::user()->idAccount) {
+			$msg = 'Usuário sem permissão';
 			$type = 'danger';
 
 		} elseif ($department->works->count() == 0) {
@@ -54,8 +63,12 @@ class DepartmentController extends Controller {
 	}
 
 	public function adiciona() {
+		$request = Request::all();
 
-		Department::create(Request::all());
+		if ($request['idAccount'] <> Auth::user()->idAccount)
+			return flashMessage('Department', 'Usuário sem permissão');
+
+		Department::create($request);
 		return flashMessage('Department', 'Departamento adicionado com sucesso');
 
 	}

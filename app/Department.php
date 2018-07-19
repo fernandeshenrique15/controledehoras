@@ -16,4 +16,8 @@ class Department extends Model {
 		return $this->hasMany('ControleDeHoras\Work', 'idDepartment');
 	}
 
+	public function account() {
+		return $this->belongsTo('ControleDeHoras\Account', 'idAccount');
+	}
+
 }

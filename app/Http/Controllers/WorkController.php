@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use ControleDeHoras\Mail\moreHours;
 use ControleDeHoras\Mail\lessHours;
+use Illuminate\Support\Facades\Auth;
 
 class WorkController extends Controller {
 
@@ -19,7 +20,7 @@ class WorkController extends Controller {
 	// Listar funcionários
 	public function lista() {
 
-		$works = Work::all()->sortBy('name');
+		$works = Work::all()->where('idAccount', Auth::user()->idAccount)->sortBy('name');
 
 		// Array do ranking
 		$positions = [

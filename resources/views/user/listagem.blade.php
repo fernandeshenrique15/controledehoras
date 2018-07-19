@@ -36,6 +36,7 @@
 			<form action="{{ action('UserController@adiciona') }}" method="post">
 				<div class="form-group">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+					<input type="hidden" name="idAccount" value="{{ $idAccount }}"/>
 					<input type="text" name="name" placeholder="Nome" class="form-control mt-2" required />
 
 		            <input type="email" name="email" placeholder="E-mail" class="form-control mt-2" required />

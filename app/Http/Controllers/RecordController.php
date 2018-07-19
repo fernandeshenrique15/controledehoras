@@ -8,6 +8,7 @@ use ControleDeHoras\Http\Requests\RecordRequest;
 use ControleDeHoras\Record;
 use ControleDeHoras\Work;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecordController extends Controller {
 
