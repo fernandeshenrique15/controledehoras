@@ -6,6 +6,7 @@ use ControleDeHoras\Account;
 use ControleDeHoras\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
@@ -23,22 +24,16 @@ class AccountController extends Controller
         }
         else {
 
-            Account::create(Request::only('name'));
-
-            $idAccount = Account::orderBy('id', 'desc')->first();
-
-            User::create([
+            $idUser = User::create([
                 'name' => $request['user'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
-                'idAccount' => $idAccount->id
-            ]);
+                'idAccount' => Account::create(Request::only('name'))->id
+            ])->id;
 
-           return redirect('login')->withInput([
-                'msg' => 'Cadastrado com sucesso, faça login para utilizar',
-                'type' => 'success',
-                'passed' => 'true'
-            ]);
+            Auth::loginUsingId($idUser);
+            return flashMessage('Department', 'Bem vindo ao sistema, cadastre seus dados', 'success');
+
       }
 	
     }
