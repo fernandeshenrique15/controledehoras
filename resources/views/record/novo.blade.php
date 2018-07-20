@@ -6,7 +6,6 @@
             <h5 class="card-title">Cadastro de Registro</h5>
             <form action="adiciona" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                <input type="hidden" name="idAccount" value="{{ $idAccount }}"/>
                 <select required name="mode" class="form-control">
                   <option selected value="" disabled>Modalidade</option>
                   <option value="add">Positivo</option>

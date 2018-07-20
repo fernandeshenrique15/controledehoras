@@ -5,6 +5,7 @@ namespace ControleDeHoras\Http\Controllers;
 use ControleDeHoras\Department;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class DepartmentController extends Controller {
 
@@ -42,12 +43,8 @@ class DepartmentController extends Controller {
 			$msg = 'Departamento não existe';
 			$type = 'danger';
 
-		} elseif ($department->idAccount <> Auth::user()->idAccount) {
-			$msg = 'Usuário sem permissão';
-			$type = 'danger';
-
 		} elseif ($department->works->count() == 0) {
-
+			$this->authorize('department', $department);
 			$department->delete();
 			$msg = 'Departamento excluido com sucesso';
 			$type = 'success';
@@ -65,8 +62,7 @@ class DepartmentController extends Controller {
 	public function adiciona() {
 		$request = Request::all();
 
-		if ($request['idAccount'] <> Auth::user()->idAccount)
-			return flashMessage('Department', 'Usuário sem permissão');
+		$this->authorize('department', (object)$request);
 
 		Department::create($request);
 		return flashMessage('Department', 'Departamento adicionado com sucesso');

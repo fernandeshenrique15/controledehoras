@@ -6,6 +6,7 @@
 		<h5 class="card-title">Cadastro de funcionário</h5>
 		<form action="adiciona" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+			<input type="hidden" name="idAccount" value="{{ $idAccount }}"/>
 			<input type="text" name="name" placeholder="Nome" class="form-control mt-2" required>
 
 			<input type="text" name="lastname" placeholder="Sobrenome" class="form-control mt-2" required>

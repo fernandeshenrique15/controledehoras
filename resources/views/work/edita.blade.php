@@ -3,7 +3,7 @@
 @section('conteudo')
 	<div class="card col-auto mx-auto mt-5">
 		<div class="card-body">
-			<h5 class="card-title">Editar {{ $w->name or 'Sem nome' }} {{ $w->lastname }}</h5>
+			<h5 class="card-title">Editar {{ $work->name or 'Sem nome' }} {{ $work->lastname }}</h5>
 			<form action="atualiza" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 				<input type="hidden" name="id" value="{{ $work->id }}"/>

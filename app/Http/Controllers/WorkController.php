@@ -69,6 +69,8 @@ class WorkController extends Controller {
 
 		if (empty($work)) {
 			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
+		} elseif ($work->idAccount <> Auth::user()->idAccount) {
+			return flashMessage('Work', 'Sem permissão', 'danger');
 		} elseif ($work->records->count() == 0) {
 			return flashMessage('Work', 'Esse funcionário não tem registros', 'danger');
 		}
@@ -79,36 +81,51 @@ class WorkController extends Controller {
 	public function remove($id) {
 		$work = Work::find($id);
 
-		if ($work->records->count() == 0) {
-			$work->delete();
-			return flashMessage('Work', 'Funcionário removido com sucesso');
-		} else {
-			return flashMessage('Work', 'Este funcionário possui registros, será necessário apagar antes de excluí-lo', 'info');
-		}
+		if (empty($work))
+			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
+		elseif ($work->idAccount <> Auth::user()->idAccount)
+			return flashMessage('Work', 'Usuário sem permissão', 'danger');
+		elseif ($work->records->count() == 0)
+			return flashMessage('Work', 'Esse funcionário não tem registros', 'danger');
+
+		$work->delete();
+		return flashMessage('Work', 'Funcionário removido com sucesso');
 
 	}
 
 	public function novo() {
-		$departments = Department::all()->sortBy('name');
-		return view('work.novo')->with('departments', $departments);
+		$departments = Department::all()->where('idAccount', Auth::user()->idAccount)->sortBy('name');
+		$idAccount = Auth::user()->idAccount;
+		return view('work.novo', ['departments' => $departments, 'idAccount' => $idAccount]);
 	}
 
 	public function adiciona() {
-		Work::create(Request::all());
+		$request = Request::all();
 
+		if ($request['idAccount'] <> Auth::user()->idAccount)
+			return flashMessage('Department', 'Usuário sem permissão', 'danger');
+
+		Work::create($request);
 		return flashMessage('Work', 'Funcionário cadastrado com sucesso');
 
 	}
 
 	public function edita($id) {
-		$work = Work::find($id);
-		$departments = Department::all()->sortBy('name');
+		$work = Work::all()->where('id', $id)->where('idAccount', Auth::user()->idAccount);
+		$departments = Department::all()->where('idAccount', Auth::user()->idAccount)->sortBy('name');
 
-		return view('work.edita', ['departments' => $departments, 'work' => $work]);
+		if ($work->count() == 0)
+			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
+
+		return view('work.edita', ['departments' => $departments, 'work' => $work[0]]);
 	}
 
 	public function atualiza() {
 		$request = Request::except('_token');
+		
+		if($request->idAccount <> Auth::user()->idAccount)
+			return flashMessage('Work', 'Usuário sem permissão', 'danger');
+
 		Work::find($request['id'])->update($request);
 
 		return flashMessage('Work', 'Funcionário atualizado com sucesso');
@@ -116,30 +133,24 @@ class WorkController extends Controller {
 	}
 
 	public function emailMore($id) {
-		$work = Work::find($id);
+		$work = Work::all()->where('id', $id)->where('idAccount', Auth::user()->idAccount);
 
-		if (empty($work)) {
+		if ($work->count() == 0)
 			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
-		} else {
 
-			Mail::to($work->email)->send(new moreHours($work));
-
-			return flashMessage('Work', 'E-mail enviado com sucesso!! ');
-		}
+		Mail::to($work[0]->email)->send(new moreHours($work[0]));
+		return flashMessage('Work', 'E-mail enviado com sucesso!! ');
 		
 	}
 
 	public function emailLess($id) {
-		$work = Work::find($id);
+		$work = Work::all()->where('id', $id)->where('idAccount', Auth::user()->idAccount);
 
-		if (empty($work)) {
+		if ($work->count() == 0)
 			return flashMessage('Work', 'Esse funcionário não existe', 'danger');
-		} else {
-
-			Mail::to($work->email)->send(new lessHours($work));
-
-			return flashMessage('Work', 'E-mail enviado com sucesso!! ');
-		}
+	
+		Mail::to($work[0]->email)->send(new lessHours($work[0]));
+		return flashMessage('Work', 'E-mail enviado com sucesso!! ');
 		
 	}
 }

@@ -24,16 +24,17 @@ class RecordController extends Controller {
 
 		// sort the result
 		$ord = $request->only('o', 's');
+		$idAccount = Auth::user()->idAccount;
 
 		if(isset($ord['o'])){
 			if(isset($ord['s'])){
-				$records = Record::all()->sortBy($ord['o'])->take(10);
+				$records = Record::all()->where('idAccount', $idAccount)->sortBy($ord['o'])->take(10);
 				$ord['o'] = 'reset';
 			} else {
-				$records = Record::all()->sortByDesc($ord['o'])->take(10);
+				$records = Record::all()->where('idAccount', $idAccount)->sortByDesc($ord['o'])->take(10);
 			}
 		} else {
-			$records = Record::all()->sortByDesc('created_at')->take(10);
+			$records = Record::all()->where('idAccount', $idAccount)->sortByDesc('created_at')->take(10);
 			$ord['o'] = 'reset';
 		}
 
@@ -79,7 +80,7 @@ class RecordController extends Controller {
 	}
 
 	public function novo() {
-		$departments = Department::all();
+		$departments = Department::all()->where('idAccount', Auth::user()->idAccount)->sortBy('name');
 		
 		return view('record.novo', ['departments' => $departments]);
 	}
@@ -88,8 +89,9 @@ class RecordController extends Controller {
 		$work = Work::find($request->idWork);
 
 		if (empty($work)) {
-			return flashMessage('Record', 'Falha ao adicionar registro', 'danger');
-		}
+			return flashMessage('Record', 'Falta informações', 'danger');
+		} elseif ($work->idAccount <> Auth::user()->idAccount)
+			return flashMessage('Record', 'Usuário sem permissão');
 
 		$dados = $request->except('_token');
 		$hour = explode(':', $dados['hour']);
@@ -120,10 +122,11 @@ class RecordController extends Controller {
 
 	public function edita($id) {
 		$record = Record::find($id);
-
-		if (empty($record)) {
+	
+		if (empty($record))
 			return flashMessage('Record', 'Registro não localizado', 'danger');
-		}
+		elseif ($record->work->idAccount <> Auth::user()->idAccount)
+			return flashMessage('Record', 'Usuário sem permissão', 'danger');
 
 		return view('record.edita', ['record' => $record]);
 	}
