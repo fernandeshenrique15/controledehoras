@@ -5,7 +5,8 @@
         <div class="card-body">
             <h5 class="card-title">Editar Registro</h5>
             <form action="atualiza" method="post">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>             
+                <input type="hidden" name="_token" value="{{ csrf_token() }}"/> 
+                <input type="hidden" name="idAccount" value="{{ $record->idAccount }}"/>            
                 <input type="hidden" name="id" value="{{ $record->id }}"/>
                 <select required name="mode" class="form-control mt-2">
                   <option value="" disabled>Modalidade</option>

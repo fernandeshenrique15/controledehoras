@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('record', function ($user, $record) {
-            return $record->work->idAccount == $user->idAccount;
+            return $record->idAccount == $user->idAccount;
         });
 
     }

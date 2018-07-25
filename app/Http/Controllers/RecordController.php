@@ -42,12 +42,14 @@ class RecordController extends Controller {
 			$formatDate = new Carbon($r->produced);
 			$r->produced = $formatDate->format('d-m-Y');
 		}
-
+		//dd($records);
 		return view('record.listagem', ['records' => $records, 'sort' => $ord['o']]);
 	}
 
 	public function remove($id) {
 		$record = Record::find($id);
+
+		$this->authorize('record', $record);
 
 		// Transforma tudo em minutos
 		$hour = explode(':', $record->hour);
@@ -80,9 +82,10 @@ class RecordController extends Controller {
 	}
 
 	public function novo() {
-		$departments = Department::all()->where('idAccount', Auth::user()->idAccount)->sortBy('name');
+		$idAccount = Auth::user()->idAccount;
+		$departments = Department::all()->where('idAccount', $idAccount)->sortBy('name');
 		
-		return view('record.novo', ['departments' => $departments]);
+		return view('record.novo', ['departments' => $departments, 'idAccount' => $idAccount]);
 	}
 
 	public function adiciona(RecordRequest $request) {
@@ -90,8 +93,9 @@ class RecordController extends Controller {
 
 		if (empty($work)) {
 			return flashMessage('Record', 'Falta informações', 'danger');
-		} elseif ($work->idAccount <> Auth::user()->idAccount)
-			return flashMessage('Record', 'Usuário sem permissão');
+		} 
+		
+		$this->authorize('record', $request);
 
 		$dados = $request->except('_token');
 		$hour = explode(':', $dados['hour']);
@@ -125,8 +129,8 @@ class RecordController extends Controller {
 	
 		if (empty($record))
 			return flashMessage('Record', 'Registro não localizado', 'danger');
-		elseif ($record->work->idAccount <> Auth::user()->idAccount)
-			return flashMessage('Record', 'Usuário sem permissão', 'danger');
+		
+		$this->authorize('record', $record);
 
 		return view('record.edita', ['record' => $record]);
 	}
@@ -134,6 +138,8 @@ class RecordController extends Controller {
 	public function atualiza(RecordRequest $request) {
 		$work = Work::find($request->idWork);
 		$recordOld = Record::find($request->id);
+
+		$this->authorize('record', $request);
 
 		$hour = explode(':', $request->hour);
 		$hourAntigo = explode(':', $recordOld->hour);

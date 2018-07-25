@@ -29,9 +29,7 @@ class DepartmentController extends Controller {
 		if ($department->works->count() == 0)
 			return flashMessage('Department', 'Não há funcionário no departamento', 'danger');
 
-		if ($department->idAccount <> Auth::user()->idAccount)
-			return flashMessage('Department', 'Usuário sem permissão', 'danger');
-
+		$this->authorize('department', $department);
 		return view('department.mostra', ['department' => $department]);
 	}
 

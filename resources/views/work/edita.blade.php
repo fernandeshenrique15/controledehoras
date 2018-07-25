@@ -6,6 +6,7 @@
 			<h5 class="card-title">Editar {{ $work->name or 'Sem nome' }} {{ $work->lastname }}</h5>
 			<form action="atualiza" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+				<input type="hidden" name="idAccount" value="{{ $idAccount }}"/>
 				<input type="hidden" name="id" value="{{ $work->id }}"/>
 				<input type="text" value="{{ $work->name }}" name="name" placeholder="Nome" class="form-control mt-2" required>
 				<input type="text" value="{{ $work->lastname }}" name="lastname" placeholder="Sobrenome" class="form-control mt-2" required>
